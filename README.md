@@ -14,13 +14,33 @@ connection.on('error', function(e) {
   console.log(e);
 });
 
+var client = new Client(connection);
+
 // optional admin server events capturing
-connection.on('admin.event', function(event, packet) {
-  console.log('['+event+']');
-  console.log(packet.getWords());
+client.on('player.onLeave', function(player) {
+    console.log('Player left:');
+    console.log(player);
 });
 
-var client = new Client(connection);
+client.on('player.onJoin', function(player) {
+    console.log('Player join:');
+    console.log(player);
+});
+
+client.on('player.onKill', function(player) {
+    console.log('Player kill:');
+    console.log(player);
+});
+
+client.on('player.onSpawn', function(player) {
+    console.log('Player spawn:');
+    console.log(player);
+});
+
+client.on('player.onChat', function(player) {
+    console.log('Player message:');
+    console.log(player);
+});
 
 // establishing connection to the server
 client.connect(function() {
